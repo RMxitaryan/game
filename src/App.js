@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import FirstPage from "./components/FirstPage";
+import SecondPage from "./components/SecondPage";
 
 function App() {
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [openSecond, setOpenSecond] = useState(false);
+
+  const onChange1 = (event) => {
+    setValue1(event.target.value);
+  };
+  const onChange2 = (event) => {
+    setValue2(event.target.value);
+  };
+  const openSecondPage = () => {
+    setOpenSecond(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!openSecond && (
+        <FirstPage
+          onChange1={onChange1}
+          value1={value1}
+          onChange2={onChange2}
+          value2={value2}
+          openSecondPage={openSecondPage}
+        />
+      )}
+      {openSecond && <SecondPage value1={value1} value2={value2} />}
+    </>
   );
 }
 
